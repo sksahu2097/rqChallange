@@ -12,11 +12,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class EmployeeService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
     private static final String BASE_URL = "http://localhost:8112/api/v1/employee";
+
+    public EmployeeService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public List<Employee> getAllEmployees() {
         log.info("Fetching all employees from {}", BASE_URL);
