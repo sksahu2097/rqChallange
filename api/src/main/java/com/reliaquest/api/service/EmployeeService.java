@@ -19,10 +19,17 @@ public class EmployeeService {
     private static final String BASE_URL = "http://localhost:8112/api/v1/employee";
 
     public List<Employee> getAllEmployees() {
+        log.info("Fetching all employees from {}", BASE_URL);
         ResponseEntity<ApiResponse<List<Employee>>> response =
                 restTemplate.exchange(BASE_URL, HttpMethod.GET, null,
                         new org.springframework.core.ParameterizedTypeReference<ApiResponse<List<Employee>>>(){});
-        return response.getBody().getData();
+        if (Objects.isNull(response.getBody())) {
+            log.info("No employees found");
+            return new ArrayList<>();
+        }
+        List<Employee> employeeList = response.getBody().getData();
+        log.debug("Received {} employees", employeeList.size());
+        return employeeList;
     }
 
     public List<Employee> searchByName(String nameFragment) {
@@ -35,6 +42,10 @@ public class EmployeeService {
         ResponseEntity<ApiResponse<Employee>> response =
                 restTemplate.exchange(BASE_URL + "/" + id, HttpMethod.GET, null,
                         new org.springframework.core.ParameterizedTypeReference<ApiResponse<Employee>>(){});
+        if (Objects.isNull(response.getBody())) {
+            log.warn("Employees not found by id = {}", id);
+            return null;
+        }
         return response.getBody().getData();
     }
 
@@ -62,6 +73,10 @@ public class EmployeeService {
         ResponseEntity<ApiResponse<Employee>> response =
                 restTemplate.exchange(BASE_URL, HttpMethod.POST, request,
                         new org.springframework.core.ParameterizedTypeReference<ApiResponse<Employee>>(){});
+        if (Objects.isNull(response.getBody())) {
+            log.warn("Employees not created");
+            return null;
+        }
         return response.getBody().getData();
     }
 
