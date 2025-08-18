@@ -13,16 +13,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpClientErrorException.NotFound.class)
     public ResponseEntity<ApiErrorResponse> handleNotFound(HttpClientErrorException.NotFound ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiErrorResponse.of("Employee not found", ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiErrorResponse.of("Employee not found", ex.getMessage()));
     }
 
     @ExceptionHandler(HttpServerErrorException.class)
     public ResponseEntity<ApiErrorResponse> handleServerError(HttpServerErrorException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(ApiErrorResponse.of("Upstream service error", ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                .body(ApiErrorResponse.of("Upstream service error", ex.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorResponse> handleGeneric(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiErrorResponse.of("FAILED", ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiErrorResponse.of("FAILED", ex.getMessage()));
     }
 }

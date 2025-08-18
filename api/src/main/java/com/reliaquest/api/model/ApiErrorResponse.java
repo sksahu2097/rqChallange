@@ -1,9 +1,8 @@
 package com.reliaquest.api.model;
 
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.time.Instant;
 
 @Data
 @AllArgsConstructor
