@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 public class EmployeeService {
 
     private final RestTemplate restTemplate;
-    private static final String BASE_URL = "http://localhost:8112/api/v1/employee";
+    private static final String BASE_URL = "http://server-service:8112/api/v1/employee";
 
     public EmployeeService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
