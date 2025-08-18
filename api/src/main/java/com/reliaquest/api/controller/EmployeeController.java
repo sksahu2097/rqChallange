@@ -1,44 +1,54 @@
 package com.reliaquest.api.controller;
 
+import com.reliaquest.api.model.Employee;
+import com.reliaquest.api.model.EmployeeInput;
+import com.reliaquest.api.service.EmployeeService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
-public class EmployeeController implements IEmployeeController{
+@RequiredArgsConstructor
+public class EmployeeController implements IEmployeeController<Employee, EmployeeInput> {
+
+    private final EmployeeService employeeService;
+
     @Override
-    public ResponseEntity<List> getAllEmployees() {
-        return null;
+    public ResponseEntity<List<Employee>> getAllEmployees() {
+        return ResponseEntity.ok(employeeService.getAllEmployees());
     }
 
     @Override
-    public ResponseEntity<List> getEmployeesByNameSearch(String searchString) {
-        return null;
+    public ResponseEntity<List<Employee>> getEmployeesByNameSearch(String searchString) {
+        return ResponseEntity.ok(employeeService.searchByName(searchString));
     }
 
     @Override
-    public ResponseEntity getEmployeeById(String id) {
-        return null;
+    public ResponseEntity<Employee> getEmployeeById(String id) {
+        return ResponseEntity.ok(employeeService.getById(id));
     }
 
     @Override
     public ResponseEntity<Integer> getHighestSalaryOfEmployees() {
-        return null;
+        return ResponseEntity.ok(employeeService.getHighestSalary());
     }
 
     @Override
     public ResponseEntity<List<String>> getTopTenHighestEarningEmployeeNames() {
-        return null;
+        return ResponseEntity.ok(employeeService.getTop10HighestEarningEmployeeNames());
     }
 
     @Override
-    public ResponseEntity createEmployee(Object employeeInput) {
-        return null;
+    public ResponseEntity<Employee> createEmployee(EmployeeInput employeeInput) {
+        return ResponseEntity.ok(employeeService.createEmployee(employeeInput));
     }
 
     @Override
     public ResponseEntity<String> deleteEmployeeById(String id) {
-        return null;
+        return ResponseEntity.ok(employeeService.deleteEmployeeById(id));
     }
 }
