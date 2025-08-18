@@ -28,6 +28,7 @@ public class MockEmployeeController {
 
     @GetMapping()
     public Response<List<MockEmployee>> getEmployees() {
+        System.out.println("IN mock getEmployees");
         return Response.handledWith(mockEmployeeService.getMockEmployees());
     }
 
