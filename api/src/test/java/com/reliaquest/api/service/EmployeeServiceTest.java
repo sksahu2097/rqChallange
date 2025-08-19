@@ -9,10 +9,10 @@ import com.reliaquest.api.model.EmployeeInput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -29,8 +29,13 @@ class EmployeeServiceTest {
     @Mock
     private RestTemplate restTemplate;
 
-    @InjectMocks
     private EmployeeService employeeService;
+
+    @BeforeEach
+    void setUp() {
+        String testBaseUrl = "http://localhost:8112/api/v1";
+        employeeService = new EmployeeService(restTemplate, testBaseUrl);
+    }
 
     @Test
     void testGetHighestSalary() {
