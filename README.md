@@ -146,3 +146,14 @@ and style guidelines with every build.
 To resolve any errors, you must run **spotlessApply** task.
 `./gradlew spotlessApply`
 
+### How to Run
+
+#### Running with Docker 🐳
+
+This project includes **Dockerfiles** for both the `api` and `server` modules, along with a `docker-compose.yml` file to run both services together.
+
+To start the services:
+1. Navigate to the root of the project.
+2. Run the following command:
+   ```bash
+   docker-compose up --build
